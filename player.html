@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Wolves - اللاعب</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/player.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="player-header">
+            <div class="header-content">
+                <img src="images/logo.png" alt="FC Wolves Logo" class="header-logo">
+                <h1 id="playerNameHeader"></h1>
+                <button id="logoutBtn" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <nav class="player-nav">
+            <button class="nav-btn active" data-tab="team">
+                <i class="fas fa-users"></i>
+            </button>
+            <button class="nav-btn" data-tab="posts">
+                <i class="fas fa-newspaper"></i>
+            </button>
+            <button class="nav-btn" data-tab="chat">
+                <i class="fas fa-comments"></i>
+            </button>
+            <button class="nav-btn" data-tab="profile">
+                <i class="fas fa-user"></i>
+            </button>
+        </nav>
+
+        <main class="player-main-content">
+            <!-- Team Tab -->
+            <div id="team-tab" class="tab-content active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-users"></i> تشكيلة الفريق</h2>
+                    </div>
+                    <div id="teamPlayersList" class="players-grid"></div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-futbol"></i> المباريات القادمة</h2>
+                    </div>
+                    <div id="upcomingMatchesList" class="matches-list"></div>
+                </div>
+            </div>
+
+            <!-- Posts Tab -->
+            <div id="posts-tab" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-pen-nib"></i> إنشاء منشور جديد</h2>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="postContent" class="form-input form-textarea" placeholder="ماذا يدور في ذهنك؟"></textarea>
+                    </div>
+                    <button id="createPostBtn" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        نشر
+                    </button>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-newspaper"></i> آخر المنشورات</h2>
+                    </div>
+                    <div id="postsFeed" class="posts-feed"></div>
+                </div>
+            </div>
+
+            <!-- Chat Tab -->
+            <div id="chat-tab" class="tab-content">
+                <div class="chat-container">
+                    <!-- Chat Sidebar -->
+                    <div class="chat-sidebar">
+                        <div class="chat-search-container">
+                            <input type="text" id="chatSearchInput" placeholder="ابحث في المحادثات..." class="chat-search">
+                        </div>
+                        
+                        <div class="conversations-list" id="conversationsList">
+                            <!-- FC WOLVES Group Chat -->
+                            <div class="conversation-item active" data-chat-type="group" data-chat-id="fc_wolves">
+                                <div class="conversation-avatar group-avatar">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="conversation-info">
+                                    <div class="conversation-name">FC WOLVES</div>
+                                    <div class="conversation-preview">المحادثة العامة للفريق</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Private Conversations will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Chat Main Area -->
+                    <div class="chat-main">
+                        <div class="chat-header" id="chatHeader">
+                            <div class="chat-header-info">
+                                <div class="chat-title" id="chatTitle">FC WOLVES</div>
+                                <div class="chat-subtitle" id="chatSubtitle">المحادثة العامة للفريق</div>
+                            </div>
+                        </div>
+
+                        <div class="chat-messages" id="chatMessages">
+                            <!-- Messages will be loaded here -->
+                        </div>
+
+                        <div class="chat-input-area">
+                            <input type="text" id="chatMessageInput" placeholder="اكتب رسالتك هنا..." class="chat-input">
+                            <button id="sendChatBtn" class="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+
+                        <div id="chatTypingIndicator" class="typing-indicator hidden"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Tab -->
+            <div id="profile-tab" class="tab-content">
+                <div class="card profile-card">
+                    <div class="profile-avatar-container">
+                        <img src="images/default-avatar.png" alt="Player Avatar" class="profile-avatar" id="profileAvatar">
+                    </div>
+                    <h2 id="profileName" class="profile-name"></h2>
+                    <p id="profileCode" class="profile-detail"></p>
+                    <p id="profilePosition" class="profile-detail"></p>
+                    <p id="profileNumber" class="profile-detail"></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/player.js"></script>
+</body>
+</html>
+

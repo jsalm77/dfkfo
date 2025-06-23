@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Wolves - لوحة المدرب</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div class="header-content">
+                <img src="images/logo.png" alt="FC Wolves Logo" class="header-logo">
+                <h1>لوحة تحكم المدرب</h1>
+                <button id="logoutBtn" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    تسجيل الخروج
+                </button>
+            </div>
+        </header>
+
+        <nav class="admin-nav">
+            <button class="nav-btn active" data-tab="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>الرئيسية</span>
+            </button>
+            <button class="nav-btn" data-tab="players">
+                <i class="fas fa-users"></i>
+                <span>اللاعبون</span>
+            </button>
+            <button class="nav-btn" data-tab="matches">
+                <i class="fas fa-futbol"></i>
+                <span>المباريات</span>
+            </button>
+            <button class="nav-btn" data-tab="posts">
+                <i class="fas fa-newspaper"></i>
+                <span>المنشورات</span>
+            </button>
+            <button class="nav-btn" data-tab="settings">
+                <i class="fas fa-cogs"></i>
+                <span>الإعدادات</span>
+            </button>
+        </nav>
+
+        <main class="admin-main-content">
+            <!-- Dashboard Tab -->
+            <div id="dashboard-tab" class="tab-content active">
+                <div class="grid grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-chart-line"></i> نظرة عامة</h2>
+                        </div>
+                        <p>مرحباً بك أيها المدرب! من هنا يمكنك مراقبة نشاط الفريق.</p>
+                        <div class="dashboard-stats">
+                            <div class="stat-item">
+                                <h3><i class="fas fa-users"></i> إجمالي اللاعبين</h3>
+                                <p id="totalPlayers">0</p>
+                            </div>
+                            <div class="stat-item">
+                                <h3><i class="fas fa-comments"></i> رسائل الدردشة العامة</h3>
+                                <p id="totalGeneralMessages">0</p>
+                            </div>
+                            <div class="stat-item">
+                                <h3><i class="fas fa-newspaper"></i> إجمالي المنشورات</h3>
+                                <p id="totalPosts">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-bell"></i> إرسال إشعار</h2>
+                        </div>
+                        <div class="form-group">
+                            <label for="notificationMessage" class="form-label">رسالة الإشعار:</label>
+                            <textarea id="notificationMessage" class="form-input form-textarea" placeholder="اكتب رسالة الإشعار هنا..."></textarea>
+                        </div>
+                        <button id="sendNotificationBtn" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            إرسال الإشعار
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Players Tab -->
+            <div id="players-tab" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-user-plus"></i> إضافة لاعب جديد</h2>
+                    </div>
+                    <div class="form-group">
+                        <label for="playerName" class="form-label">اسم اللاعب:</label>
+                        <input type="text" id="playerName" class="form-input" placeholder="مثال: جهاد الغرياني">
+                    </div>
+                    <div class="form-group">
+                        <label for="playerCode" class="form-label">رمز الدخول:</label>
+                        <input type="text" id="playerCode" class="form-input" placeholder="مثال: 0011JM">
+                    </div>
+                    <div class="form-group">
+                        <label for="playerPosition" class="form-label">المركز:</label>
+                        <input type="text" id="playerPosition" class="form-input" placeholder="مثال: رأس حربة">
+                    </div>
+                    <div class="form-group">
+                        <label for="playerNumber" class="form-label">رقم القميص:</label>
+                        <input type="number" id="playerNumber" class="form-input" placeholder="مثال: 9">
+                    </div>
+                    <button id="addPlayerBtn" class="btn btn-success">
+                        <i class="fas fa-plus-circle"></i>
+                        إضافة لاعب
+                    </button>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-users"></i> قائمة اللاعبين</h2>
+                    </div>
+                    <div id="playersListAdmin" class="players-grid-admin"></div>
+                </div>
+            </div>
+
+            <!-- Matches Tab -->
+            <div id="matches-tab" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-calendar-plus"></i> إضافة مباراة جديدة</h2>
+                    </div>
+                    <div class="form-group">
+                        <label for="matchOpponent" class="form-label">الفريق المنافس:</label>
+                        <input type="text" id="matchOpponent" class="form-input" placeholder="مثال: فريق النجوم">
+                    </div>
+                    <div class="form-group">
+                        <label for="matchDate" class="form-label">التاريخ:</label>
+                        <input type="date" id="matchDate" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="matchTime" class="form-label">الوقت:</label>
+                        <input type="time" id="matchTime" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="matchLocation" class="form-label">المكان:</label>
+                        <input type="text" id="matchLocation" class="form-input" placeholder="مثال: ملعب المدينة">
+                    </div>
+                    <div class="form-group">
+                        <label for="matchType" class="form-label">النوع:</label>
+                        <select id="matchType" class="form-input">
+                            <option value="ودية">ودية</option>
+                            <option value="رسمية">رسمية</option>
+                            <option value="تدريب">تدريب</option>
+                        </select>
+                    </div>
+                    <button id="addMatchBtn" class="btn btn-success">
+                        <i class="fas fa-plus-circle"></i>
+                        إضافة مباراة
+                    </button>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-futbol"></i> المباريات المجدولة</h2>
+                    </div>
+                    <div id="matchesListAdmin" class="matches-list-admin"></div>
+                </div>
+            </div>
+
+            <!-- Posts Tab -->
+            <div id="posts-tab" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-newspaper"></i> إدارة المنشورات</h2>
+                    </div>
+                    <div id="allPostsListAdmin" class="posts-list-admin"></div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings-tab" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-cogs"></i> إعدادات التطبيق</h2>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">حالة الدردشة العامة:</label>
+                        <input type="checkbox" id="toggleChat" class="toggle-switch">
+                        <label for="toggleChat" class="toggle-label"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">حالة المنشورات:</label>
+                        <input type="checkbox" id="togglePosts" class="toggle-switch">
+                        <label for="togglePosts" class="toggle-label"></label>
+                    </div>
+                    <button id="clearGeneralChatBtn" class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                        حذف جميع رسائل الدردشة العامة
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
+

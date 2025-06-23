@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التعليقات - FC Wolves</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/comments.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="comments-page">
+        <div class="comments-header">
+            <button class="back-btn" onclick="history.back()">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <h2>التعليقات</h2>
+        </div>
+
+        <div class="post-preview" id="postPreview">
+            <!-- Post content will be loaded here -->
+        </div>
+
+        <div class="comments-container" id="commentsContainer">
+            <!-- Comments will be loaded here -->
+        </div>
+
+        <div class="comment-input-section">
+            <div class="comment-input-container">
+                <textarea id="commentInput" placeholder="اكتب تعليقك هنا..." rows="3"></textarea>
+                <button id="submitCommentBtn" class="submit-comment-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/comments.js"></script>
+</body>
+</html>
+
